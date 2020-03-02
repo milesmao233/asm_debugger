@@ -1,0 +1,116 @@
+;def multiply(x, y):
+;    i = 1
+;    result = 0
+;    while i < y:
+;        result = result + x
+;        i += 1
+;
+;    return x1
+
+; result  -2
+; i       -4
+; y       -6
+; x       -8
+
+
+jump @1024
+.memory 1024
+set2 f1 3
+.call_function main
+    ; .call @main
+
+halt
+
+.define_function main
+    .args
+    .locals x y res
+    ; @main
+    ; set2 a3 6
+    ; add2 a3 f1 f1
+
+    .var_local x 5
+    ; set2 a2 5
+    ; .save a2 6
+
+    .var_local y 4
+    ; set2 a2 4
+    ; .save a2 4
+
+     .call_function multiply x y
+            ; 参数1 加到内存中
+            ; .load 6 a2
+            ; .save_param a2 2
+                ; set2 a3 2
+                ; add2 f1 a3 a3
+                ; save_from_register2 a2 a3
+
+            ; 参数2 加到内存中
+                ; .load 4 a2
+                ; .save_param a2 4
+                    ; set2 a3 4
+                    ; add2 f1 a3 a3
+                    ; save_from_register2 a2 a3
+
+            ; .call @multiply
+
+
+    .assign_return res
+    ; .save a1 2
+        ; set2 a2 2
+        ; subtract2 f1 a2 a2
+        ; save_from_register2 a1 a2
+
+    .return_val res
+    ; .load 2 a1
+
+.end_function main
+    ;.return 6
+
+.define_function multiply
+    .args a b
+    .locals i result
+
+    ; @multiply
+    ; set2 a3 8
+    ; add2 a3 f1 f1
+
+    .var_local i 1
+    ; 局部变量i 初始为1
+    ; set2 a2 1
+    ; .save a2 4
+
+    .var_local result 0
+    ; 局部变量result 初始为0
+    ; set2 a2 0
+    ; .save a2 2
+
+    .while i < b
+        ; @while_start
+        ; (.if_less y i @while_end)
+;             .load 6 a1
+;             .load 4 a2
+;             compare a1 a2
+;             jump_if_less @while_end
+
+            .add2 result a result
+                ; 读取 result 到a1中
+                ; .load 2 a1
+                ; 读取 x 到 a2 中
+                ; .load 8 a2
+                ; add2 a1 a2 a1
+                ; .save a1 2
+            .add2 i 1 i
+                ; 改变i, 取 加 存
+                ; .load 4 a1
+                ; set2 a2 1
+                ; add2 a1 a2 a1
+                ; .save a1 4
+        .while_done
+            ; jump @while_start
+            ; @while_end
+    .return_val result
+        ; .load 2 a1
+
+.end_function multiply
+;.return 8
+

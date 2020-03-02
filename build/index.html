@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="container">
+        <article id="machine-code-editor">
+            <h2>Machine code</h2>
+            <form>
+                <textarea id="machine-code" name="machine-code"></textarea>
+            </form>
+            <button id='id-button'>start</button>
+            <button id='id-button-continue'>continue</button>
+            <button id='id-button-next'>next</button>
+
+        </article>
+        <article id="asm-editor">
+            <h2>Code</h2>
+            <form>
+                <textarea id="code" name="code">
+    jump @1024
+    .memory 1024
+    set2 f1 3
+    jump @function_end
+    
+    @function_multiply ; 1031
+    set2 a3 2
+    save_from_register2 a1 f1 ; a1 入栈
+    add2 a3 f1 f1
+    save_from_register2 a2 f1 ; a2 入栈
+    add2 a3 f1 f1
+    set2 a3 2
+    
+    @while_start ;
+    set2 a2 2
+    subtract2 f1 a2 a2
+    load_from_register2 a2 a2
+    compare a2 a3 ;
+    jump_if_less @while_end ; 一旦 a2 小于 a3，就结束循环
+    set2 a2 1
+    add2 a3 a2 a3           ; a3 + 1
+    
+    set2 a2 4
+    subtract2 f1 a2 a2
+    load_from_register2 a2 a2
+    add2 a1 a2 a1           ; 累加结果
+    
+    jump @while_start
+    @while_end ;72
+    .return 4
+    @function_end
+    
+    set2 a1 100
+    set2 a2 5
+    .call @function_multiply
+    halt</textarea>
+            </form>
+        </article>
+    
+        
+        <div class="bottom register_stack">
+            
+            <p>Registers</p>
+            <div id="id-registers-div" style="overflow: auto;">
+                <table id="id-registers">
+                    <thead>
+                        <tr>
+                        <th>pa</th>
+                        <th>a1</th>
+                        <th>a2</th>
+                        <th>a3</th>
+                        <th>c1</th>
+                        <th>f1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td id="id-reg-pa" class="registers-cell" data-register='pa'>0</td>
+                        <td id="id-reg-a1" class="registers-cell" data-register='a1'>0</td>
+                        <td id="id-reg-a2" class="registers-cell" data-register='a2'>0</td>
+                        <td id="id-reg-a3" class="registers-cell" data-register='a3'>0</td>
+                        <td id="id-reg-c1" class="registers-cell" data-register='c1'>0</td>
+                        <td id="id-reg-f1" class="registers-cell" data-register='f1'>0</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <p>Stack</p>
+            <div id="id-stack-div">
+                <table>
+                    <tbody id="id-stack-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="app.js"></script></body>
+</html>

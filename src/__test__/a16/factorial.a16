@@ -1,0 +1,72 @@
+;def factorial(x):
+;    n = 2
+;    t
+;    x2
+;    result
+;
+;    if (x < n):
+;        return 1
+;
+;    t = x - 1
+;    x2 = factorial(t)
+;    result = x * x2
+;    return result
+
+
+jump @1024
+.memory 1024
+set2 f1 3
+.call_function main
+
+halt
+
+.define_function main
+    .args
+    .locals x res
+
+    .var_local x 5
+
+    .call_function factorial x
+
+    .assign_return res
+
+    .return_val res
+
+.end_function main
+
+.define_function factorial
+    .args x
+    .locals n t x2 result
+
+    .var_local n 2
+
+    .if x < n @if_end
+        .subtract2 x 1 t
+        .call_function factorial t
+        .assign_return x2
+
+        .call_function multiply x x2
+        .assign_return result
+
+        .return_val result
+
+    .if_end
+    .return_val 1
+
+.end_function factorial
+
+.define_function multiply
+    .args a b
+    .locals i result
+
+    .var_local i 1
+    .var_local result 0
+
+    .while b > i
+        .add2 result a result
+        .add2 i 1 i
+    .while_done
+
+    .return_val result
+
+.end_function multiply

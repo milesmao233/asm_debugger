@@ -1,0 +1,38 @@
+body {
+    background: lightblue;
+}
+
+.gua-pink {
+    background: pink;
+}
+
+.highline-background {
+    background: rgb(111, 200, 223);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+
+.CodeMirror {
+}
+
+.bottom {
+
+}
+
+#asm-editor {
+    height: 500px;
+}
+
+#machine-code-editor {
+    height: 500px;
+}
+
+#id-stack-div {
+    width: 200px;
+    height: 500px;
+    overflow: auto;
+}
